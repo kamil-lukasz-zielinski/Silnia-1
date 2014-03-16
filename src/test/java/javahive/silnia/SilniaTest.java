@@ -1,6 +1,5 @@
 package javahive.silnia;
 
-
 import javahive.silnia.KalkulatorSilni;
 import javahive.silnia.impl.KalkulatorSilniGuava;
 import javahive.silnia.impl.KalkulatorSilniBigDecimal;
@@ -14,155 +13,140 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 /**
- *
+ * 
  * @author Marcin Grabowiecki
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SilniaTest {
-	
-    // to jest prosty test, który sprawdza implementację dostarczonego algorytmu,
-    // liczącego w oparciu o typy long
-    @Test
-    public void t001PodstawowaImplementacjaPowinnaPoprawnieLiczycSilnie(){
-        //given
-    		final KalkulatorSilni kalkulatorSilni=new SzybkiKalkulatorSilni(); 
-            final int silnia=10;
-        //when
-            String wynik=kalkulatorSilni.licz(silnia);
-        //then
-            Assert.assertEquals("3628800",wynik);
-    }
-    
-    /*
-     * test warunku brzegowego - liczby ujemne
-     * 
-     * pierwsze zdanie - uzupełnić algorytm w klasie SzybkiKalkulatorSilni o wykrywanie czy argument
-     * nie jest ujemny. Jeśli jest - należy zwrócić wyjątek
-     * Jak widać - test oczekuje że pojawi się wyjątek
-     * 
-     */
-    
-    @Test(expected = ArithmeticException.class)
-    public void t002ArgumentyUjemnePowinnyWyrzucacWyjatek(){
-        //given
-    		final KalkulatorSilni kalkulatorSilni=new SzybkiKalkulatorSilni();
-            final int silnia=-1;
-        //when
-            String wynik=kalkulatorSilni.licz(silnia);
-        //then
-            Assert.fail();
-    }    
-    
-    /*
-     * drugie zadanie - zaimplementować metodę licz w KalkulatorzeSilnikBigDecimal
-     * tak by do jej liczenia były używane BigDecimal-e 
-     */
-    
-    @Test
-    public void t003KalkulatorPowinienLiczycPoprawnieDlaDuzychArgumentow(){
-        //given
-    		final KalkulatorSilni kalkulatorSilni=new KalkulatorSilniBigDecimal();
-    		final int silnia=50;
-        //when
-            String wynik=kalkulatorSilni.licz(silnia);
-        //then
-            //w teście sprawdzam tylko pierwsze 10 cyfr
-            Assert.assertEquals(wynik.substring(0,10), "3041409320");
-    }
+public class SilniaTest
+{
 
-    
-     /*
-     * Zaimplementować algorytm w OptymalnymKalkulatorzeSilni tak, by algorytm automatycznie rozpoznawał
-     * czy do liczenia użyć Szybkiej silni (małe argumenty) czy BigDecimalSilnia
-     * (dla dużych argumentów)
-     */
-    
-    @Test
-    public void t004KalkulatorOptymalnejSilniPowinienPoprawnieLiczyc(){
-        //given
-    		final KalkulatorSilni kalkulatorSilni=new OptymalnyKalkulatorSilni();
-    		final int silnia=50;
-        //when
-            String wynik=kalkulatorSilni.licz(silnia);
-        //then
-            Assert.assertEquals(wynik.substring(0,10), "3041409320");
-    }
-    
+	// to jest prosty test, który sprawdza implementację dostarczonego
+	// algorytmu,
+	// liczącego w oparciu o typy long
+	@Test
+	public void t001PodstawowaImplementacjaPowinnaPoprawnieLiczycSilnie()
+	{
+		// given
+		final KalkulatorSilni kalkulatorSilni = new SzybkiKalkulatorSilni();
+		final int silnia = 10;
+		// when
+		String wynik = kalkulatorSilni.licz(silnia);
+		// then
+		Assert.assertEquals("3628800", wynik);
+	}
 
-    
-     /* 
-     * Czasem zamiast odrywać Amerykę na nowo wystarczy poszukać dobrej biblioteki
-     * zmodyfikuj pom.xml i zmodyfikuj GuavaSilnia tak by test kończył się sukcesem
-     */
-    
-    @Test
-    public void t005KalkulatorGuavaPowinienZwracacPoprawnyWynik(){
-        //given
-    		final KalkulatorSilni kalkulatorSilni=new KalkulatorSilniGuava();
-            final int silnia=50;
-        //when
-            String wynik=kalkulatorSilni.licz(silnia);
-        //then
-            Assert.assertEquals(wynik.substring(0,10), "3041409320");
-    }
-    
-    
-    //test wszystkich algorytmów liczenia silni
+	/*
+	 * test warunku brzegowego - liczby ujemne
+	 * 
+	 * pierwsze zdanie - uzupełnić algorytm w klasie SzybkiKalkulatorSilni o
+	 * wykrywanie czy argument nie jest ujemny. Jeśli jest - należy zwrócić
+	 * wyjątek Jak widać - test oczekuje że pojawi się wyjątek
+	 */
 
-    @Test
-    public void t007WszystkieKalkulatorySilniPowinnyZwracacTenSamWynik(){
-        //given
-    		KalkulatorSilni[]wszytkieKalkulatory={
-    				new SzybkiKalkulatorSilni(),
-    				new OptymalnyKalkulatorSilni(),
-    				new KalkulatorSilniGuava(),
-    				new KalkulatorSilniBigDecimal(),
-    				new KalkulatorSilniNieRekurencyjny()
-    		};
-            final int silnia=9;
-        
-        for(KalkulatorSilni kalkulator:wszytkieKalkulatory){
-        //when
-            String wynik=kalkulator.licz(silnia);
-        //then
-            Assert.assertEquals("362880", wynik);
-        }
-    }
-    
-    @Test
-    public void t008WszystkieKalkulatorySilniPowinnyLiczycZero(){
-    	//given
-		KalkulatorSilni[]wszytkieKalkulatory={
-				new SzybkiKalkulatorSilni(),
-				new OptymalnyKalkulatorSilni(),
-				new KalkulatorSilniGuava(),
-				new KalkulatorSilniBigDecimal(),
-				new KalkulatorSilniNieRekurencyjny()
-		};
-		final int podstawa = 0;
-		for(KalkulatorSilni kalkulator:wszytkieKalkulatory)
+	@Test(expected = ArithmeticException.class)
+	public void t002ArgumentyUjemnePowinnyWyrzucacWyjatek()
+	{
+		// given
+		final KalkulatorSilni kalkulatorSilni = new SzybkiKalkulatorSilni();
+		final int silnia = -1;
+		// when
+		String wynik = kalkulatorSilni.licz(silnia);
+		// then
+		Assert.fail();
+	}
+
+	/*
+	 * drugie zadanie - zaimplementować metodę licz w
+	 * KalkulatorzeSilnikBigDecimal tak by do jej liczenia były używane
+	 * BigDecimal-e
+	 */
+
+	@Test
+	public void t003KalkulatorPowinienLiczycPoprawnieDlaDuzychArgumentow()
+	{
+		// given
+		final KalkulatorSilni kalkulatorSilni = new KalkulatorSilniBigDecimal();
+		final int silnia = 50;
+		// when
+		String wynik = kalkulatorSilni.licz(silnia);
+		// then
+		// w teście sprawdzam tylko pierwsze 10 cyfr
+		Assert.assertEquals(wynik.substring(0, 10), "3041409320");
+	}
+
+	/*
+	 * Zaimplementować algorytm w OptymalnymKalkulatorzeSilni tak, by algorytm
+	 * automatycznie rozpoznawał czy do liczenia użyć Szybkiej silni (małe
+	 * argumenty) czy BigDecimalSilnia (dla dużych argumentów)
+	 */
+
+	@Test
+	public void t004KalkulatorOptymalnejSilniPowinienPoprawnieLiczyc()
+	{
+		// given
+		final KalkulatorSilni kalkulatorSilni = new OptymalnyKalkulatorSilni();
+		final int silnia = 50;
+		// when
+		String wynik = kalkulatorSilni.licz(silnia);
+		// then
+		Assert.assertEquals(wynik.substring(0, 10), "3041409320");
+	}
+
+	/*
+	 * Czasem zamiast odrywać Amerykę na nowo wystarczy poszukać dobrej
+	 * biblioteki zmodyfikuj pom.xml i zmodyfikuj GuavaSilnia tak by test
+	 * kończył się sukcesem
+	 */
+
+	@Test
+	public void t005KalkulatorGuavaPowinienZwracacPoprawnyWynik()
+	{
+		// given
+		final KalkulatorSilni kalkulatorSilni = new KalkulatorSilniGuava();
+		final int silnia = 50;
+		// when
+		String wynik = kalkulatorSilni.licz(silnia);
+		// then
+		Assert.assertEquals(wynik.substring(0, 10), "3041409320");
+	}
+
+	// test wszystkich algorytmów liczenia silni
+
+	@Test
+	public void t007WszystkieKalkulatorySilniPowinnyZwracacTenSamWynik()
+	{
+		// given
+		KalkulatorSilni[] wszytkieKalkulatory =
+		{ new SzybkiKalkulatorSilni(), new OptymalnyKalkulatorSilni(),
+				new KalkulatorSilniGuava(), new KalkulatorSilniBigDecimal(),
+				new KalkulatorSilniNieRekurencyjny() };
+		final int silnia = 9;
+
+		for (KalkulatorSilni kalkulator : wszytkieKalkulatory)
 		{
-			//when
+			// when
+			String wynik = kalkulator.licz(silnia);
+			// then
+			Assert.assertEquals("362880", wynik);
+		}
+	}
+
+	@Test
+	public void t008WszystkieKalkulatorySilniPowinnyLiczycZero()
+	{
+		// given
+		KalkulatorSilni[] wszytkieKalkulatory =
+		{ new SzybkiKalkulatorSilni(), new OptymalnyKalkulatorSilni(),
+				new KalkulatorSilniGuava(), new KalkulatorSilniBigDecimal(),
+				new KalkulatorSilniNieRekurencyjny() };
+		final int podstawa = 0;
+		for (KalkulatorSilni kalkulator : wszytkieKalkulatory)
+		{
+			// when
 			String wynik = kalkulator.licz(podstawa);
-			//then
+			// then
 			Assert.assertEquals("1", wynik);
 		}
-    }
-    @Test
-    public void t009PorownajBigDecimalOraz()
-    {
-    	//given
-    		KalkulatorSilni kalkulatorBig = new KalkulatorSilniBigDecimal();
-    		KalkulatorSilni kalkulatorSzybki = new SzybkiKalkulatorSilni();
-    	for(int i=0; i<21; ++i)
-    	{
-    		//when
-    		String wynik1=kalkulatorBig.licz(i);
-    		String wynik2=kalkulatorSzybki.licz(i);
-    		//then
-    		Assert.assertEquals(wynik1, wynik2);
-    	}
-    }
-    
+	}
 
 }
