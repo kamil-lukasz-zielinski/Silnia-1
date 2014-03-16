@@ -87,6 +87,7 @@ public class SilniaTest {
         //then
             Assert.assertEquals(wynik.substring(0,10), "3041409320");
     }
+    
 
     
      /* 
@@ -130,8 +131,37 @@ public class SilniaTest {
     
     @Test
     public void t008WszystkieKalkulatorySilniPowinnyLiczycZero(){
-    	//TODO napisać test który sprawdzi czy wszystkie kalkulatory liczą 0!
-    	Assert.fail();
+    	//given
+		KalkulatorSilni[]wszytkieKalkulatory={
+				new SzybkiKalkulatorSilni(),
+				new OptymalnyKalkulatorSilni(),
+				new KalkulatorSilniGuava(),
+				new KalkulatorSilniBigDecimal(),
+				new KalkulatorSilniNieRekurencyjny()
+		};
+		final int podstawa = 0;
+		for(KalkulatorSilni kalkulator:wszytkieKalkulatory)
+		{
+			//when
+			String wynik = kalkulator.licz(podstawa);
+			//then
+			Assert.assertEquals("1", wynik);
+		}
+    }
+    @Test
+    public void t009PorownajBigDecimalOraz()
+    {
+    	//given
+    		KalkulatorSilni kalkulatorBig = new KalkulatorSilniBigDecimal();
+    		KalkulatorSilni kalkulatorSzybki = new SzybkiKalkulatorSilni();
+    	for(int i=0; i<21; ++i)
+    	{
+    		//when
+    		String wynik1=kalkulatorBig.licz(i);
+    		String wynik2=kalkulatorSzybki.licz(i);
+    		//then
+    		Assert.assertEquals(wynik1, wynik2);
+    	}
     }
     
 

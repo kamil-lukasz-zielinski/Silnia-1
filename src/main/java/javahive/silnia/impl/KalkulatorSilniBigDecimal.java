@@ -25,7 +25,6 @@ public class KalkulatorSilniBigDecimal implements KalkulatorSilni{
         {
         	wynik=wynik.multiply(new BigDecimal(i));
         }
-		return wynik.toString();
-        
+		return wynik.toString();      
     }
 }
