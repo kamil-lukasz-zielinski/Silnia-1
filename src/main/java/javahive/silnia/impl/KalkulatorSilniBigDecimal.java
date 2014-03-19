@@ -10,7 +10,7 @@ public class KalkulatorSilniBigDecimal implements KalkulatorSilni
 	{
 		if (podstawa < 0)
 		{
-			throw new ArithmeticException("Podstawa silni jest ujemna");
+			throw new ArithmeticException();
 		}
 		BigDecimal wynik = BigDecimal.ONE;
 		for (int i = 1; i <= podstawa; ++i)

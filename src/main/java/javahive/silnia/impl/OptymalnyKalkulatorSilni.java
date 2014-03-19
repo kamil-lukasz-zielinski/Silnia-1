@@ -4,12 +4,12 @@ import javahive.silnia.KalkulatorSilni;
 
 public class OptymalnyKalkulatorSilni implements KalkulatorSilni
 {
-	private static int MAKSYMALNYARGUMENT = 12;
+	private static final int MAXFORSZYBKI = 12;
 
 	public String licz(int podstawa)
 	{
 		KalkulatorSilni kalkulator = null;
-		if (podstawa <= MAKSYMALNYARGUMENT)
+		if (podstawa <= MAXFORSZYBKI)
 		{
 			kalkulator = new SzybkiKalkulatorSilni();
 		}

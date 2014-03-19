@@ -19,9 +19,8 @@ public class KalkulatorSilniNieRekurencyjny implements KalkulatorSilni
 			{
 				wynik = wynik.multiply(BigDecimal.valueOf(i));
 			}
-			return wynik;
 		}
-		return BigDecimal.ONE;
+		return wynik;
 	}
 	public String licz(int arg)
 	{

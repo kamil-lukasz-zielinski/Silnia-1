@@ -50,7 +50,7 @@ public class SilniaTest
 		final KalkulatorSilni kalkulatorSilni = new SzybkiKalkulatorSilni();
 		final int silnia = -1;
 		// when
-		String wynik = kalkulatorSilni.licz(silnia);
+		kalkulatorSilni.licz(silnia);
 		// then
 		Assert.fail();
 	}
