@@ -9,7 +9,9 @@ public class KalkulatorSilniBigDecimal implements KalkulatorSilni
 	public String licz(int podstawa)
 	{
 		if (podstawa < 0)
+		{
 			throw new ArithmeticException("Podstawa silni jest ujemna");
+		}
 		BigDecimal wynik = BigDecimal.ONE;
 		for (int i = 1; i <= podstawa; ++i)
 		{

@@ -8,7 +8,7 @@ public class SzybkiKalkulatorSilni implements KalkulatorSilni
 	{
 		if (podstawa < 0)
 		{
-			throw new ArithmeticException("Podstawa silni jest ujemna");
+			throw new ArithmeticException();
 		}
 		if (podstawa > 0)
 		{

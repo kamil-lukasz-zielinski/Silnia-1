@@ -10,10 +10,9 @@ public class KalkulatorSilniNieRekurencyjny implements KalkulatorSilni
 	{
 		if (podstawa < 0)
 		{
-			throw new ArithmeticException(
-					"podstawa silni nie może być mniejsza od zera");
+			throw new ArithmeticException();
 		}
-		BigDecimal wynik = new BigDecimal(1);
+		BigDecimal wynik = BigDecimal.ONE;
 		if (podstawa > 0)
 		{
 			for (int i = 1; i <= podstawa; i++)
@@ -24,7 +23,6 @@ public class KalkulatorSilniNieRekurencyjny implements KalkulatorSilni
 		}
 		return BigDecimal.ONE;
 	}
-
 	public String licz(int arg)
 	{
 		return liczB(arg).toString();
